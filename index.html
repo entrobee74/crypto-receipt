@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdrawal Receipt | Binance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .animate-pending { animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .glass-effect { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); }
+    </style>
+</head>
+<body class="bg-[#0b0e11] text-[#eaecef] font-sans min-h-screen flex items-center justify-center p-4">
+
+    <div class="max-w-md w-full glass-effect border border-gray-800 rounded-3xl p-6 shadow-2xl">
+        <div class="flex justify-between items-center mb-8">
+            <img src="https://bin.bnbstatic.com/static/images/common/favicon.ico" class="w-8 h-8" alt="Binance">
+            <span class="text-gray-400 text-sm">2026-03-21 10:00:02</span>
+        </div>
+
+        <div class="text-center mb-10">
+            <div id="statusIcon" class="w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-4 animate-pending">
+                <svg class="w-8 h-8 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <h1 id="statusText" class="text-2xl font-bold text-yellow-500">Pending</h1>
+            <p class="text-gray-400 text-sm mt-1">Withdrawal Request Submitted</p>
+        </div>
+
+        <div class="space-y-6">
+            <div class="flex justify-between border-b border-gray-800 pb-4">
+                <span class="text-gray-400">Amount</span>
+                <span class="font-medium text-lg">0.45231 BTC</span>
+            </div>
+
+            <div class="space-y-2">
+                <span class="text-gray-400 text-sm">Withdrawal Address</span>
+                <div class="bg-[#1e2329] p-3 rounded-xl break-all text-xs font-mono text-gray-300">
+                    bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 pt-4">
+                <div>
+                    <span class="text-gray-400 text-xs block">Exchange</span>
+                    <span class="text-sm">Binance Global</span>
+                </div>
+                <div class="text-right">
+                    <span class="text-gray-400 text-xs block">Network</span>
+                    <span class="text-sm">BTC (SegWit)</span>
+                </div>
+            </div>
+        </div>
+
+        <button onclick="toggleStatus()" class="mt-10 w-full py-3 bg-[#2b2f36] hover:bg-[#3b3f46] rounded-xl text-sm transition-all">
+            Switch Status (Preview)
+        </button>
+    </div>
+
+    <script>
+        function toggleStatus() {
+            const icon = document.getElementById('statusIcon');
+            const text = document.getElementById('statusText');
+            
+            if (text.innerText === "Pending") {
+                text.innerText = "Completed";
+                text.className = "text-2xl font-bold text-green-500";
+                icon.className = "w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4";
+                icon.innerHTML = '<svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+            } else {
+                text.innerText = "Pending";
+                text.className = "text-2xl font-bold text-yellow-500";
+                icon.className = "w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-4 animate-pending";
+                icon.innerHTML = '<svg class="w-8 h-8 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
+            }
+        }
+    </script>
+</body>
+</html>
+
