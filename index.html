@@ -3,81 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Withdrawal Receipt | Binance</title>
+    <title>Withdrawal Detail | Binance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @keyframes pulse-soft {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
         }
-        .animate-pending { animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-        .glass-effect { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); }
+        .animate-pending { animation: pulse-soft 2s infinite; }
+        .glass-card { background: #181a20; border: 1px solid #2b3139; }
+        .binance-yellow { color: #FCD535; }
+        .binance-bg-yellow { background-color: rgba(252, 213, 53, 0.1); }
+        .tether-teal { color: #009393; }
     </style>
 </head>
-<body class="bg-[#0b0e11] text-[#eaecef] font-sans min-h-screen flex items-center justify-center p-4">
+<body class="bg-[#0b0e11] text-[#eaecef] font-sans min-h-screen flex flex-col items-center justify-center p-4">
 
-    <div class="max-w-md w-full glass-effect border border-gray-800 rounded-3xl p-6 shadow-2xl">
+    <div class="max-w-md w-full glass-card rounded-2xl p-6 shadow-2xl">
         <div class="flex justify-between items-center mb-8">
-            <img src="https://bin.bnbstatic.com/static/images/common/favicon.ico" class="w-8 h-8" alt="Binance">
-            <span class="text-gray-400 text-sm">2026-03-21 10:00:02</span>
+            <div class="flex items-center gap-2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#FCD535"><path d="M12 0l3.75 3.75L12 7.5 8.25 3.75 12 0zm7.5 7.5L23.25 11.25 19.5 15 15.75 11.25 19.5 7.5zm-15 0L8.25 11.25 4.5 15 .75 11.25 4.5 7.5zM12 15l3.75 3.75L12 22.5 8.25 18.75 12 15z"></path></svg>
+                <span class="font-bold text-lg tracking-tight">Binance</span>
+            </div>
+            <span class="text-gray-500 text-xs">2026-03-21 12:15:42</span>
         </div>
 
         <div class="text-center mb-10">
-            <div id="statusIcon" class="w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-4 animate-pending">
-                <svg class="w-8 h-8 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <div id="statusIcon" class="w-20 h-20 binance-bg-yellow rounded-full flex items-center justify-center mx-auto mb-4 animate-pending">
+                <svg id="svgIcon" class="w-10 h-10 binance-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
             </div>
-            <h1 id="statusText" class="text-2xl font-bold text-yellow-500">Pending</h1>
-            <p class="text-gray-400 text-sm mt-1">Withdrawal Request Submitted</p>
+            <h1 id="statusText" class="text-2xl font-bold binance-yellow">Pending</h1>
+            <p id="statusDesc" class="text-gray-400 text-sm mt-1">Processing withdrawal request...</p>
         </div>
 
-        <div class="space-y-6">
-            <div class="flex justify-between border-b border-gray-800 pb-4">
-                <span class="text-gray-400">Amount</span>
-                <span class="font-medium text-lg">10,000 USDT</span>
+        <div class="space-y-5">
+            <div class="flex justify-between items-end border-b border-[#2b3139] pb-4">
+                <span class="text-gray-400 text-sm">Amount</span>
+                <div class="text-right">
+                    <span class="text-2xl font-semibold">10,000.00</span>
+                    <span class="text-sm ml-1 text-gray-400 font-medium">USDT</span>
+                </div>
             </div>
 
             <div class="space-y-2">
-                <span class="text-gray-400 text-sm">Withdrawal Address</span>
-                <div class="bg-[#1e2329] p-3 rounded-xl break-all text-xs font-mono text-gray-300">
-                    bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-400">Network</span>
+                    <span>TRX (TRC20)</span>
+                </div>
+                <span class="text-gray-400 text-sm block">Address</span>
+                <div class="bg-[#1e2329] p-3 rounded-lg break-all text-[11px] font-mono text-gray-300 leading-relaxed">
+                    TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-4 pt-4">
-                <div>
-                    <span class="text-gray-400 text-xs block">Exchange</span>
-                    <span class="text-sm">Binance Global</span>
-                </div>
-                <div class="text-right">
-                    <span class="text-gray-400 text-xs block">Network</span>
-                    <span class="text-sm">BTC (SegWit)</span>
-                </div>
+            <div class="flex justify-between text-sm pt-2">
+                <span class="text-gray-400">Exchange</span>
+                <span class="font-medium text-[#f0b90b]">Binance Global</span>
+            </div>
+
+            <div class="flex justify-between text-sm border-t border-[#2b3139] pt-4">
+                <span class="text-gray-400">Fee</span>
+                <span>1.00 USDT</span>
             </div>
         </div>
 
-        <button onclick="toggleStatus()" class="mt-10 w-full py-3 bg-[#2b2f36] hover:bg-[#3b3f46] rounded-xl text-sm transition-all">
-            Switch Status (Preview)
+        <button onclick="toggleStatus()" class="opacity-0 w-full py-4 mt-6 cursor-default">
+            Debug Switch
         </button>
     </div>
 
+    <p class="text-[10px] text-gray-700 mt-8 text-center px-10">
+        This is a private transaction receipt. Do not share sensitive details with unauthorized parties.
+    </p>
+
     <script>
+        // EASY SWITCH: Change this to 'completed' manually if you want it to start as finished
+        let currentStatus = 'pending'; 
+
         function toggleStatus() {
-            const icon = document.getElementById('statusIcon');
+            const iconContainer = document.getElementById('statusIcon');
+            const svgIcon = document.getElementById('svgIcon');
             const text = document.getElementById('statusText');
+            const desc = document.getElementById('statusDesc');
             
-            if (text.innerText === "Pending") {
+            if (currentStatus === 'pending') {
+                // Switch to Completed
+                currentStatus = 'completed';
                 text.innerText = "Completed";
                 text.className = "text-2xl font-bold text-green-500";
-                icon.className = "w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4";
-                icon.innerHTML = '<svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+                desc.innerText = "Funds have been sent to destination";
+                iconContainer.className = "w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4";
+                svgIcon.setAttribute('stroke', '#22c55e');
+                svgIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>';
             } else {
+                // Switch back to Pending
+                currentStatus = 'pending';
                 text.innerText = "Pending";
-                text.className = "text-2xl font-bold text-yellow-500";
-                icon.className = "w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-4 animate-pending";
-                icon.innerHTML = '<svg class="w-8 h-8 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
+                text.className = "text-2xl font-bold binance-yellow";
+                desc.innerText = "Processing withdrawal request...";
+                iconContainer.className = "w-20 h-20 binance-bg-yellow rounded-full flex items-center justify-center mx-auto mb-4 animate-pending";
+                svgIcon.setAttribute('stroke', '#FCD535');
+                svgIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>';
             }
         }
     </script>
 </body>
 </html>
-
